@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, User, Hash, GraduationCap, Mail, Phone, Lock, Eye, EyeOff, Upload, AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
+import { Sparkles, User, Hash, GraduationCap, Mail, Phone, Lock, Eye, EyeOff, Upload, AlertCircle, Loader2, CheckCircle2, Camera } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { registerStudentAction } from "@/app/actions/auth";
 import { SceneCanvas } from "@/app/components/3d/SceneCanvas";
@@ -111,23 +111,23 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
   }
 
   return (
-    <div className="relative min-h-[90vh] flex items-center justify-center py-8 px-4">
-      {/* 1. 3D Scene Backdrop */}
-      <SceneCanvas />
+    <div className="relative min-h-[92vh] flex items-center justify-center py-12 px-4">
+      {/* 1. Full-Screen Atmospheric 3D Scene Backdrop */}
+      <SceneCanvas isAuthPage={true} />
 
       {/* 2. Smoked Dark Glass Registration Card (Matching input_file_0.png) */}
       <div className="relative z-10 w-full max-w-lg mx-auto space-y-6">
-        <div className="backdrop-blur-2xl bg-[#050914]/90 p-8 sm:p-10 rounded-3xl border border-[#D8B56A]/35 shadow-2xl space-y-6 text-center">
+        <div className="backdrop-blur-2xl bg-[#050914]/85 p-8 sm:p-10 rounded-3xl border border-[#D8B56A]/35 shadow-[0_16px_50px_rgba(0,0,0,0.7)] space-y-6 text-center">
           {/* Logo Crest & IICT BHADOHI */}
           <div className="flex flex-col items-center justify-center space-y-2">
-            <div className="w-12 h-12 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold-sm">
-              <Sparkles className="w-6 h-6 text-[#050914]" />
+            <div className="w-11 h-11 rounded-xl bg-[#081221] border border-[#D8B56A]/40 flex items-center justify-center shadow-[0_0_15px_rgba(216,181,106,0.15)]">
+              <Sparkles className="w-5 h-5 text-[#D8B56A]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-sm tracking-widest gold-gradient-text uppercase">
+              <span className="font-extrabold text-sm tracking-widest text-[#F4F1EA] uppercase">
                 IICT
               </span>
-              <span className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">
+              <span className="text-[9px] text-[#D8B56A] font-bold tracking-widest uppercase -mt-0.5">
                 BHADOHI
               </span>
             </div>
@@ -135,7 +135,7 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
 
           {/* Heading */}
           <div className="space-y-1">
-            <h1 className="text-2xl font-bold text-[#F4F1EA]">
+            <h1 className="text-2xl font-black tracking-tight text-[#F4F1EA]">
               Create Account
             </h1>
             <p className="text-xs text-slate-400">
@@ -145,7 +145,7 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
 
           {/* Error Alert */}
           {error && (
-            <div className="p-3.5 rounded-xl bg-red-950/70 border border-red-800 text-red-300 text-xs flex items-start gap-2.5 text-left">
+            <div className="p-3.5 rounded-xl bg-red-950/80 border border-red-800 text-red-300 text-xs flex items-start gap-2.5 text-left">
               <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -153,23 +153,23 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-3.5 text-left">
-            {/* Profile Photo Avatar Uploader */}
-            <div className="p-3 rounded-2xl bg-navy-950/70 border border-navy-800 flex items-center gap-3.5">
-              <div className="w-14 h-14 rounded-2xl border-2 border-[#D8B56A]/40 bg-navy-900 overflow-hidden flex items-center justify-center relative shrink-0 shadow-sm">
+            {/* Custom Profile Photo Avatar Uploader (Matching user prompt specifications) */}
+            <div className="p-3.5 rounded-2xl bg-[#081221]/80 border border-[#D8B56A]/25 flex items-center gap-4 shadow-sm">
+              <div className="w-16 h-16 rounded-full border-2 border-[#D8B56A]/50 bg-[#050914] overflow-hidden flex items-center justify-center relative shrink-0 shadow-[0_0_15px_rgba(216,181,106,0.2)]">
                 {photoPreview ? (
                   <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-6 h-6 text-slate-500" />
+                  <Camera className="w-6 h-6 text-[#D8B56A]/70" />
                 )}
                 {uploadingImage && (
-                  <div className="absolute inset-0 bg-[#050914]/80 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#050914]/85 flex items-center justify-center">
                     <Loader2 className="w-4 h-4 text-[#D8B56A] animate-spin" />
                   </div>
                 )}
               </div>
 
               <div className="flex-1 space-y-1">
-                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-slate-200 text-xs font-semibold border border-slate-700 cursor-pointer transition-all">
+                <label className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#050914] hover:bg-[#0D1624] text-slate-200 text-xs font-semibold border border-[#D8B56A]/40 cursor-pointer transition-all hover:border-[#D8B56A]">
                   <Upload className="w-3.5 h-3.5 text-[#D8B56A]" />
                   <span>{photoUrl ? "Change Photo" : "Upload Profile Photo"}</span>
                   <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
@@ -177,10 +177,10 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
                 <p className="text-[10px] text-slate-400">
                   {photoUrl ? (
                     <span className="text-emerald-400 font-medium flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Uploaded successfully
+                      <CheckCircle2 className="w-3 h-3" /> Photo ready for account
                     </span>
                   ) : (
-                    "Upload front-facing photo (max 5MB)"
+                    "Select passport/front photo (max 5MB)"
                   )}
                 </p>
               </div>
@@ -222,11 +222,11 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
                   name="batchId"
                   required
                   defaultValue=""
-                  className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl glass-input bg-[#050914] text-slate-100 cursor-pointer"
+                  className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl glass-input bg-[#081221] text-slate-100 cursor-pointer"
                 >
                   <option value="" disabled>Select Batch</option>
                   {batches.map((batch) => (
-                    <option key={batch.id} value={batch.id} className="bg-navy-900 text-slate-100">
+                    <option key={batch.id} value={batch.id} className="bg-[#050914] text-slate-100">
                       Batch {batch.label}
                     </option>
                   ))}
@@ -322,7 +322,7 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
             <button
               type="submit"
               disabled={submitting || uploadingImage}
-              className="w-full py-3.5 rounded-full font-extrabold text-xs gold-gradient-btn shadow-gold-glow flex items-center justify-center gap-2 mt-4 cursor-pointer disabled:opacity-50 uppercase tracking-widest hover:scale-102 transition-all"
+              className="w-full py-3.5 rounded-full font-extrabold text-xs gold-gradient-btn flex items-center justify-center gap-2 mt-4 cursor-pointer disabled:opacity-50 uppercase tracking-widest"
             >
               {submitting ? (
                 <>
@@ -336,7 +336,7 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
           </form>
 
           {/* Footer Link */}
-          <div className="pt-2 text-center border-t border-navy-800/80 text-xs text-slate-400">
+          <div className="pt-3 text-center border-t border-slate-800/80 text-xs text-slate-400">
             <span>Already have an account? </span>
             <Link href="/login" className="text-[#D8B56A] font-bold hover:underline">
               Login
@@ -347,3 +347,4 @@ export default function RegisterForm({ batches }: { batches: BatchOption[] }) {
     </div>
   );
 }
+

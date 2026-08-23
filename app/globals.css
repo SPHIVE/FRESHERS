@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0b0f19;
-  --foreground: #f8fafc;
+  --background: #050914;
+  --foreground: #F4F1EA;
 }
 
 body {
@@ -14,14 +14,15 @@ body {
   overflow-x: hidden;
 }
 
-/* Glassmorphism utility components */
+/* Glassmorphism & Refined Design System */
 @layer utilities {
+  /* Smoked Dark Glass Auth & Content Cards */
   .glass-card {
-    background: rgba(17, 23, 38, 0.65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    background: rgba(8, 18, 33, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(216, 181, 106, 0.25);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
   }
 
   .glass-card-hover {
@@ -29,55 +30,83 @@ body {
   }
 
   .glass-card-hover:hover {
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.25);
+    border-color: rgba(216, 181, 106, 0.5);
+    box-shadow: 0 0 30px -5px rgba(216, 181, 106, 0.3);
     transform: translateY(-2px);
   }
 
+  /* Form Glass Input Fields */
   .glass-input {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #f8fafc;
-    transition: all 0.2s ease-in-out;
+    background: rgba(13, 22, 36, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #F4F1EA;
+    transition: all 0.25s ease-in-out;
   }
 
   .glass-input:focus {
     outline: none;
-    border-color: #d4af37;
-    box-shadow: 0 0 12px -2px rgba(212, 175, 55, 0.3);
+    border-color: #D8B56A;
+    box-shadow: 0 0 14px -2px rgba(216, 181, 106, 0.35);
+    background: rgba(13, 22, 36, 0.9);
   }
 
+  /* Metallic Champagne Gold Gradient Text */
   .gold-gradient-text {
-    background: linear-gradient(135deg, #FBE495 0%, #D4AF37 50%, #AA8625 100%);
+    background: linear-gradient(135deg, #F1D28A 0%, #D8B56A 50%, #9E7D3B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
+  /* Primary Gold Metallic Pill Button */
   .gold-gradient-btn {
-    background: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #AA8625 100%);
-    color: #05070C;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    background: linear-gradient(135deg, #F1D28A 0%, #D8B56A 50%, #B8934A 100%);
+    color: #050914;
+    font-weight: 800;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(216, 181, 106, 0.25);
   }
 
   .gold-gradient-btn:hover {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-    transform: scale(1.01);
+    box-shadow: 0 0 28px rgba(216, 181, 106, 0.55);
+    transform: translateY(-1px) scale(1.02);
+  }
+
+  .gold-gradient-btn:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  /* Outlined Compact Control Button (e.g., Nav LOGIN / REGISTER) */
+  .gold-outline-btn {
+    background: rgba(5, 9, 20, 0.7);
+    border: 1px solid rgba(216, 181, 106, 0.55);
+    color: #D8B56A;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .gold-outline-btn:hover {
+    background: rgba(216, 181, 106, 0.12);
+    border-color: #F1D28A;
+    color: #F1D28A;
+    box-shadow: 0 0 20px rgba(216, 181, 106, 0.35);
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Refined Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #050914;
 }
 ::-webkit-scrollbar-thumb {
-  background: #232e4a;
+  background: #111e33;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #D8B56A;
 }
+

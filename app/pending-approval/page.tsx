@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentProfile, requireAuthenticatedUser } from "@/lib/auth/helpers";
 import { Clock, ShieldAlert, LogOut, RefreshCw, Sparkles, CheckCircle2 } from "lucide-react";
 import { logoutUserAction } from "@/app/actions/auth";
+import { SceneCanvas } from "@/app/components/3d/SceneCanvas";
 
 export const revalidate = 0;
 
@@ -17,15 +18,15 @@ export default async function PendingApprovalPage() {
   const isRejected = profile?.approval_status === "rejected";
 
   return (
-    <div className="relative min-h-[85vh] flex items-center justify-center py-10 px-4">
-      {/* Dynamic Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-radial opacity-30 blur-3xl pointer-events-none" />
+    <div className="relative min-h-[92vh] flex items-center justify-center py-12 px-4">
+      {/* 1. Full-Screen Atmospheric 3D Scene Backdrop */}
+      <SceneCanvas isAuthPage={true} />
 
       <div className="relative z-10 w-full max-w-lg space-y-6">
         {/* Status Card */}
-        <div className="backdrop-blur-2xl bg-[#050914]/90 p-8 sm:p-10 rounded-3xl space-y-6 text-center border border-[#D8B56A]/35 shadow-2xl">
+        <div className="backdrop-blur-2xl bg-[#050914]/85 p-8 sm:p-10 rounded-3xl space-y-6 text-center border border-[#D8B56A]/35 shadow-[0_16px_50px_rgba(0,0,0,0.7)]">
           {/* Status Badge Icon */}
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold-500/10 border-2 border-[#D8B56A]/40 text-[#D8B56A] mx-auto shadow-gold-glow relative">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#081221] border-2 border-[#D8B56A]/50 text-[#D8B56A] mx-auto shadow-[0_0_20px_rgba(216,181,106,0.25)] relative">
             {isRejected ? (
               <ShieldAlert className="w-10 h-10 text-red-400" />
             ) : (
@@ -34,8 +35,8 @@ export default async function PendingApprovalPage() {
           </div>
 
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-950/80 border border-gold-500/30 text-gold-400 text-[10px] font-bold uppercase tracking-widest mx-auto">
-              <Sparkles className="w-3 h-3 text-gold-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#081221] border border-[#D8B56A]/30 text-[#D8B56A] text-[10px] font-bold uppercase tracking-widest mx-auto">
+              <Sparkles className="w-3 h-3 text-[#D8B56A] animate-pulse" />
               <span>IICT STUDENT ACCOUNT</span>
             </div>
 
@@ -52,9 +53,9 @@ export default async function PendingApprovalPage() {
 
           {/* Student Profile Card Summary */}
           {profile && (
-            <div className="p-4 rounded-2xl bg-navy-950/80 border border-navy-800 text-left space-y-3">
+            <div className="p-4 rounded-2xl bg-[#081221]/80 border border-[#D8B56A]/20 text-left space-y-3">
               <div className="flex items-center gap-3.5">
-                <div className="w-14 h-14 rounded-2xl border-2 border-[#D8B56A]/40 overflow-hidden bg-navy-900 shrink-0">
+                <div className="w-14 h-14 rounded-2xl border-2 border-[#D8B56A]/40 overflow-hidden bg-[#050914] shrink-0">
                   {profile.profile_photo_url ? (
                     <img
                       src={profile.profile_photo_url}
@@ -62,7 +63,7 @@ export default async function PendingApprovalPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gold-400 text-base font-bold">
+                    <div className="w-full h-full flex items-center justify-center text-[#D8B56A] text-base font-bold">
                       {profile.full_name.charAt(0)}
                     </div>
                   )}
@@ -76,13 +77,13 @@ export default async function PendingApprovalPage() {
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-navy-800 flex items-center justify-between text-xs">
+              <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
                 <span className="text-slate-400">Status:</span>
                 <span
                   className={`px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
                     isRejected
                       ? "bg-red-950 text-red-400 border border-red-800"
-                      : "bg-gold-500/10 text-[#D8B56A] border border-[#D8B56A]/30"
+                      : "bg-[#D8B56A]/15 text-[#D8B56A] border border-[#D8B56A]/30"
                   }`}
                 >
                   {profile.approval_status}
@@ -95,7 +96,7 @@ export default async function PendingApprovalPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <a
               href="/pending-approval"
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs bg-navy-900 hover:bg-navy-800 text-slate-200 border border-slate-700 flex items-center justify-center gap-2 transition-all"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs bg-[#081221] hover:bg-[#0D1624] text-slate-200 border border-slate-700 flex items-center justify-center gap-2 transition-all"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>REFRESH STATUS</span>
@@ -116,3 +117,4 @@ export default async function PendingApprovalPage() {
     </div>
   );
 }
+

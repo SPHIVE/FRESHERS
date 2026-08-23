@@ -23,7 +23,7 @@ export default async function RootLayout({
         <Navbar profile={profile} />
 
         {/* Main Content Area */}
-        <main className="flex-1 w-full relative z-10 pt-20">
+        <main className="flex-1 w-full relative z-10">
           {children}
         </main>
 

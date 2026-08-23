@@ -6,11 +6,13 @@ import * as THREE from "three";
 
 interface CameraProps {
   mousePos: { x: number; y: number };
+  isMobile?: boolean;
   onScrollProgress?: (progress: number) => void;
 }
 
 export function CameraJourneyController({
   mousePos,
+  isMobile = false,
   onScrollProgress,
 }: CameraProps) {
   const vec = useRef(new THREE.Vector3());
@@ -35,11 +37,11 @@ export function CameraJourneyController({
     const p = scrollProgressRef.current;
 
     // Mouse parallax effect
-    const mouseX = mousePos.x * 0.7;
-    const mouseY = mousePos.y * 0.4 + 0.2;
+    const mouseX = mousePos.x * (isMobile ? 0.3 : 0.6);
+    const mouseY = mousePos.y * (isMobile ? 0.2 : 0.35) + (isMobile ? 0.35 : 0.2);
 
-    // Camera journey Z offset: moves from 7.5 down to -14 smoothly
-    const targetZ = 7.5 - p * 21.5;
+    const baseZ = isMobile ? 9.8 : 7.8;
+    const targetZ = baseZ - p * 21;
     const targetY = mouseY + p * 0.5;
     const targetX = mouseX + (p > 0.3 ? (p - 0.3) * 2.5 : 0);
 
@@ -55,3 +57,4 @@ export function CameraJourneyController({
 
   return null;
 }
+

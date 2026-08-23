@@ -32,31 +32,31 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-[85vh] flex items-center justify-center py-8 px-4">
-      {/* 1. 3D Scene Backdrop */}
-      <SceneCanvas />
+    <div className="relative min-h-[92vh] flex items-center justify-center py-12 px-4">
+      {/* 1. Full-Screen Atmospheric 3D Scene Backdrop */}
+      <SceneCanvas isAuthPage={true} />
 
       {/* 2. Smoked Dark Glass Auth Card (Matching input_file_0.png) */}
       <div className="relative z-10 w-full max-w-md mx-auto space-y-6">
-        <div className="backdrop-blur-2xl bg-[#050914]/90 p-8 sm:p-10 rounded-3xl border border-[#D8B56A]/35 shadow-2xl space-y-6 text-center">
+        <div className="backdrop-blur-2xl bg-[#050914]/85 p-8 sm:p-10 rounded-3xl border border-[#D8B56A]/35 shadow-[0_16px_50px_rgba(0,0,0,0.7)] space-y-6 text-center">
           {/* Logo Crest & IICT BHADOHI */}
           <div className="flex flex-col items-center justify-center space-y-2">
-            <div className="w-12 h-12 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold-sm">
-              <Sparkles className="w-6 h-6 text-[#050914]" />
+            <div className="w-11 h-11 rounded-xl bg-[#081221] border border-[#D8B56A]/40 flex items-center justify-center shadow-[0_0_15px_rgba(216,181,106,0.15)]">
+              <Sparkles className="w-5 h-5 text-[#D8B56A]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-black text-sm tracking-widest gold-gradient-text uppercase">
+              <span className="font-extrabold text-sm tracking-widest text-[#F4F1EA] uppercase">
                 IICT
               </span>
-              <span className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">
+              <span className="text-[9px] text-[#D8B56A] font-bold tracking-widest uppercase -mt-0.5">
                 BHADOHI
               </span>
             </div>
           </div>
 
-          {/* Heading */}
+          {/* Heading & Description */}
           <div className="space-y-1">
-            <h1 className="text-2xl font-bold text-[#F4F1EA]">
+            <h1 className="text-2xl font-black tracking-tight text-[#F4F1EA]">
               Welcome Back
             </h1>
             <p className="text-xs text-slate-400">
@@ -66,7 +66,7 @@ export default function LoginPage() {
 
           {/* Error Alert */}
           {error && (
-            <div className="p-3.5 rounded-xl bg-red-950/70 border border-red-800 text-red-300 text-xs flex items-start gap-2.5 text-left">
+            <div className="p-3.5 rounded-xl bg-red-950/80 border border-red-800 text-red-300 text-xs flex items-start gap-2.5 text-left">
               <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 </button>
               </div>
 
-              <div className="text-right pt-1.5">
+              <div className="text-right pt-2">
                 <a href="#" className="text-[11px] text-[#D8B56A] font-semibold hover:underline">
                   Forgot Password?
                 </a>
@@ -118,7 +118,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-full font-extrabold text-xs gold-gradient-btn shadow-gold-glow flex items-center justify-center gap-2 mt-4 cursor-pointer disabled:opacity-50 uppercase tracking-widest hover:scale-102 transition-all"
+              className="w-full py-3.5 rounded-full font-extrabold text-xs gold-gradient-btn flex items-center justify-center gap-2 mt-4 cursor-pointer disabled:opacity-50 uppercase tracking-widest"
             >
               {loading ? (
                 <>
@@ -132,7 +132,7 @@ export default function LoginPage() {
           </form>
 
           {/* Footer Link */}
-          <div className="pt-2 text-center border-t border-navy-800/80 text-xs text-slate-400">
+          <div className="pt-3 text-center border-t border-slate-800/80 text-xs text-slate-400">
             <span>Don't have an account? </span>
             <Link href="/register" className="text-[#D8B56A] font-bold hover:underline">
               Sign Up
@@ -143,3 +143,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

@@ -16,15 +16,15 @@ export function NavDestinations3D() {
   });
 
   return (
-    <group ref={groupRef} position={[0, -0.5, -9]}>
+    <group ref={groupRef} position={[0, -1.5, -22]}>
       {/* =================================================== */}
-      {/* DESTINATION 1: THE CONTRIBUTORS (Left, Position Z = -7) */}
+      {/* DESTINATION 1: THE CONTRIBUTORS (Left, Position Z = -20) */}
       {/* =================================================== */}
-      <group position={[-4.2, 0.5, 2]}>
+      <group position={[-5.5, 0.5, 4]}>
         <Float speed={1.8} rotationIntensity={0.2} floatIntensity={0.4}>
           {/* Monument Base Pedestal */}
           <mesh position={[0, -1.2, 0]}>
-            <boxGeometry args={[3.2, 0.4, 1.8]} />
+            <boxGeometry args={[3.8, 0.4, 1.8]} />
             <meshStandardMaterial color="#081221" metalness={0.9} roughness={0.2} />
           </mesh>
 
@@ -36,14 +36,14 @@ export function NavDestinations3D() {
 
           {/* 3D Title */}
           <Center position={[0, 0.4, 0]}>
-            <Text fontSize={0.55} letterSpacing={0.15}>
+            <Text fontSize={0.65} letterSpacing={0.15}>
               THE CONTRIBUTORS
               <meshStandardMaterial color="#D8B56A" metalness={0.9} roughness={0.15} />
             </Text>
           </Center>
 
           <Center position={[0, -0.2, 0]}>
-            <Text fontSize={0.24} letterSpacing={0.08}>
+            <Text fontSize={0.28} letterSpacing={0.08}>
               “The People Who Made It Possible”
               <meshStandardMaterial color="#F4F1EA" metalness={0.5} roughness={0.4} />
             </Text>
@@ -52,71 +52,71 @@ export function NavDestinations3D() {
       </group>
 
       {/* =================================================== */}
-      {/* DESTINATION 2: FINANCIAL TRANSPARENCY (Center, Position Z = -11) */}
+      {/* DESTINATION 2: FINANCIAL TRANSPARENCY (Center, Position Z = -30) */}
       {/* =================================================== */}
-      <group position={[0, 1.2, -4]}>
+      <group position={[0, 1.2, -8]}>
         <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.3}>
           {/* Smoked Glass Display Backing */}
           <mesh position={[0, 0, -0.1]}>
-            <boxGeometry args={[6.8, 3.2, 0.2]} />
+            <boxGeometry args={[7.5, 3.6, 0.2]} />
             <meshStandardMaterial
               color="#050914"
               metalness={0.95}
               roughness={0.1}
               transparent
-              opacity={0.85}
+              opacity={0.9}
             />
           </mesh>
 
-          <Center position={[0, 1.0, 0.1]}>
-            <Text fontSize={0.5} letterSpacing={0.15}>
+          <Center position={[0, 1.1, 0.1]}>
+            <Text fontSize={0.55} letterSpacing={0.15}>
               FINANCIAL TRANSPARENCY
               <meshStandardMaterial color="#D8B56A" metalness={0.9} roughness={0.15} />
             </Text>
           </Center>
 
           {/* 3 Metrics Block Display */}
-          <Center position={[-2.0, 0.1, 0.1]}>
-            <Text fontSize={0.22}>
+          <Center position={[-2.2, 0.1, 0.1]}>
+            <Text fontSize={0.24}>
               TOTAL COLLECTED
               <meshStandardMaterial color="#94a3b8" />
             </Text>
           </Center>
-          <Center position={[-2.0, -0.3, 0.1]}>
-            <Text fontSize={0.45}>
+          <Center position={[-2.2, -0.35, 0.1]}>
+            <Text fontSize={0.5}>
               ₹0
               <meshStandardMaterial color="#4ade80" />
             </Text>
           </Center>
 
           <Center position={[0, 0.1, 0.1]}>
-            <Text fontSize={0.22}>
+            <Text fontSize={0.24}>
               TOTAL EXPENSES
               <meshStandardMaterial color="#94a3b8" />
             </Text>
           </Center>
-          <Center position={[0, -0.3, 0.1]}>
-            <Text fontSize={0.45}>
+          <Center position={[0, -0.35, 0.1]}>
+            <Text fontSize={0.5}>
               ₹0
               <meshStandardMaterial color="#f87171" />
             </Text>
           </Center>
 
-          <Center position={[2.0, 0.1, 0.1]}>
-            <Text fontSize={0.22}>
+          <Center position={[2.2, 0.1, 0.1]}>
+            <Text fontSize={0.24}>
               REMAINING BALANCE
               <meshStandardMaterial color="#94a3b8" />
             </Text>
           </Center>
-          <Center position={[2.0, -0.3, 0.1]}>
-            <Text fontSize={0.45}>
+          <Center position={[2.2, -0.35, 0.1]}>
+            <Text fontSize={0.5}>
               ₹0
               <meshStandardMaterial color="#D8B56A" />
             </Text>
           </Center>
 
-          <Center position={[0, -0.9, 0.1]}>
-            <Text fontSize={0.2}>
+          <Center position={[0, -1.0, 0.1]}>
+            <Text fontSize={0.22}>
               100% Transparent • Every Penny Accounted For
               <meshStandardMaterial color="#F4F1EA" />
             </Text>
@@ -125,13 +125,13 @@ export function NavDestinations3D() {
       </group>
 
       {/* =================================================== */}
-      {/* DESTINATION 3: STUDENT HELP HUB (Right, Position Z = -16) */}
+      {/* DESTINATION 3: STUDENT HELP HUB (Right, Position Z = -40) */}
       {/* =================================================== */}
-      <group position={[4.2, 0.5, -9]}>
+      <group position={[5.5, 0.5, -18]}>
         <Float speed={1.6} rotationIntensity={0.2} floatIntensity={0.35}>
           {/* Digital Gateway Arch / Portal Geometry */}
           <mesh position={[0, 0, -0.2]}>
-            <torusGeometry args={[1.8, 0.12, 16, 64, Math.PI]} />
+            <torusGeometry args={[2.0, 0.14, 16, 64, Math.PI]} />
             <meshStandardMaterial
               color="#6C63A8"
               metalness={0.9}
@@ -142,17 +142,17 @@ export function NavDestinations3D() {
           </mesh>
 
           {/* Portal Inner Glow */}
-          <pointLight position={[0, 0.5, 0]} intensity={2.5} color="#6C63A8" distance={8} />
+          <pointLight position={[0, 0.5, 0]} intensity={2.8} color="#6C63A8" distance={10} />
 
           <Center position={[0, 0.6, 0.1]}>
-            <Text fontSize={0.5} letterSpacing={0.15}>
+            <Text fontSize={0.55} letterSpacing={0.15}>
               STUDENT HELP HUB
               <meshStandardMaterial color="#F4F1EA" metalness={0.7} roughness={0.2} />
             </Text>
           </Center>
 
           <Center position={[0, 0, 0.1]}>
-            <Text fontSize={0.24} letterSpacing={0.08}>
+            <Text fontSize={0.26} letterSpacing={0.08}>
               “Know Your College. Know Your People.”
               <meshStandardMaterial color="#D8B56A" />
             </Text>
@@ -162,3 +162,4 @@ export function NavDestinations3D() {
     </group>
   );
 }
+
