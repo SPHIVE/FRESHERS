@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, Shield, LogOut, Menu, X, User, ArrowRight, Home, Calendar, Users, DollarSign, BookOpen, KeyRound, UserPlus } from "lucide-react";
+import { Sparkles, Shield, LogOut, Menu, X, User, ArrowRight, Home, Calendar, HeartHandshake, DollarSign, BookOpen, KeyRound, UserPlus } from "lucide-react";
 import { logoutUserAction } from "@/app/actions/auth";
 
 interface UserProfileProps {
@@ -37,16 +37,16 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
   }, [menuOpen]);
 
   const mainNavItems = [
-    { name: "HOME", href: "/", subtitle: "3D Cinematic Entry Experience", icon: Home },
-    { name: "FRESHERS 2026", href: "/freshers", subtitle: "Event Lineup & Gala Details", icon: Calendar },
-    { name: "CONTRIBUTORS", href: "/contributors", subtitle: "Wall of Honor & Organizers", icon: Users },
-    { name: "FINANCIAL TRANSPARENCY", href: "/finance", subtitle: "100% Audited Expense Ledger", icon: DollarSign },
-    { name: "STUDENT HELP HUB", href: "/help-hub", subtitle: "Verified Student Resource Portal", icon: BookOpen },
+    { num: "01", name: "HOME", href: "/", subtitle: "3D Cinematic Entry Experience", icon: Home },
+    { num: "02", name: "FRESHERS 2026", href: "/freshers", subtitle: "Event Lineup & Gala Details", icon: Calendar },
+    { num: "03", name: "CONTRIBUTION", href: "/contribution", subtitle: "Support & Wall of Honor", icon: HeartHandshake },
+    { num: "04", name: "FINANCE", href: "/finance", subtitle: "Financial Transparency Ledger", icon: DollarSign },
+    { num: "05", name: "STUDENT HELP HUB", href: "/help-hub", subtitle: "Verified Student Resource Portal", icon: BookOpen },
   ];
 
   return (
     <>
-      {/* Top Floating Navbar (Minimal & Uncluttered) */}
+      {/* Top Floating Navbar */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 w-full pointer-events-auto transition-all duration-300 ${
           isHomePage
@@ -70,13 +70,16 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
             </div>
           </Link>
 
-          {/* Top-Right Premium Hamburger Button (Desktop & Mobile) */}
+          {/* Top-Right Hamburger Button */}
           <div className="flex items-center gap-3">
             {profile && (
-              <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-300 px-3.5 py-1.5 rounded-full bg-[#081221]/90 border border-[#D8B56A]/20">
+              <Link
+                href="/profile"
+                className="hidden sm:flex items-center gap-1.5 text-xs text-slate-300 px-3.5 py-1.5 rounded-full bg-[#081221]/90 border border-[#D8B56A]/30 hover:border-[#D8B56A] transition-all"
+              >
                 <User className="w-3.5 h-3.5 text-[#D8B56A]" />
                 <span className="max-w-[110px] truncate font-semibold">{profile.full_name}</span>
-              </div>
+              </Link>
             )}
 
             <button
@@ -97,7 +100,7 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
         </div>
       </header>
 
-      {/* Modern 3D Depth Navigation Overlay */}
+      {/* Premium Apple/Stripe-level Navigation Overlay */}
       {menuOpen && (
         <div className="fixed inset-0 z-[100] w-full h-full min-h-screen bg-[#050914]/95 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-12 overflow-y-auto animate-in fade-in duration-300 selection:bg-[#D8B56A] selection:text-[#050914]">
           {/* Header Bar Inside Overlay */}
@@ -129,9 +132,9 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
             </button>
           </div>
 
-          {/* Center 3D Depth Navigation List */}
-          <div className="max-w-4xl mx-auto w-full my-auto py-8 space-y-4 sm:space-y-6 [perspective:1000px]">
-            {mainNavItems.map((item, idx) => {
+          {/* Navigation List */}
+          <div className="max-w-4xl mx-auto w-full my-auto py-8 space-y-3 sm:space-y-4">
+            {mainNavItems.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
               return (
@@ -139,52 +142,55 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`group relative flex items-center justify-between p-4 sm:p-6 rounded-2xl border transition-all duration-300 transform-gpu [transform-style:preserve-3d] hover:[transform:translateZ(20px)_scale(1.02)] ${
+                  className={`group relative flex items-center justify-between p-4 sm:p-5 rounded-2xl border transition-all duration-300 ${
                     isActive
-                      ? "bg-[#081221]/90 border-[#D8B56A] shadow-[0_0_30px_rgba(216,181,106,0.25)]"
-                      : "bg-[#081221]/50 border-[#D8B56A]/20 hover:border-[#D8B56A]/70 hover:bg-[#081221]/80 hover:shadow-[0_0_25px_rgba(216,181,106,0.15)]"
+                      ? "bg-[#081221]/90 border-[#D8B56A] shadow-[0_0_30px_rgba(216,181,106,0.2)]"
+                      : "bg-[#081221]/40 border-[#D8B56A]/15 hover:border-[#D8B56A]/60 hover:bg-[#081221]/80 hover:translate-x-1"
                   }`}
                 >
                   <div className="flex items-center gap-4 sm:gap-6">
-                    <div className="w-12 h-12 rounded-xl bg-[#050914] border border-[#D8B56A]/30 flex items-center justify-center text-[#D8B56A] group-hover:scale-110 transition-transform">
-                      <Icon className="w-6 h-6" />
+                    <span className="text-xs font-mono font-bold text-[#D8B56A]/60 group-hover:text-[#D8B56A] transition-colors">
+                      {item.num}
+                    </span>
+                    <div className="w-10 h-10 rounded-xl bg-[#050914] border border-[#D8B56A]/30 flex items-center justify-center text-[#D8B56A] group-hover:scale-105 transition-transform">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <div className="space-y-0.5">
+                    <div>
                       <h2
-                        className={`text-lg sm:text-2xl font-black uppercase tracking-wider transition-colors ${
+                        className={`text-base sm:text-xl font-black uppercase tracking-wider transition-colors ${
                           isActive ? "text-[#D8B56A]" : "text-[#F4F1EA] group-hover:text-[#D8B56A]"
                         }`}
                       >
                         {item.name}
                       </h2>
-                      <p className="text-xs text-slate-400 font-semibold tracking-wide">
+                      <p className="text-[11px] text-slate-400 font-semibold tracking-wide">
                         {item.subtitle}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-bold text-[#D8B56A] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span>ENTER</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Link>
               );
             })}
 
-            {/* Auth Specific Menu Item */}
+            {/* Auth Section */}
             {profile ? (
-              <div className="pt-4 border-t border-[#D8B56A]/20 space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {profile.approval_status === "approved" && (
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setMenuOpen(false)}
-                      className="p-4 rounded-2xl bg-[#081221]/90 border border-[#D8B56A]/30 hover:border-[#D8B56A] flex items-center justify-between text-xs font-extrabold uppercase text-[#F4F1EA] hover:text-[#D8B56A] transition-all"
-                    >
-                      <span>PROFILE / DASHBOARD</span>
-                      <ArrowRight className="w-4 h-4 text-[#D8B56A]" />
-                    </Link>
-                  )}
+              <div className="pt-4 border-t border-[#D8B56A]/20 space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <Link
+                    href="/profile"
+                    onClick={() => setMenuOpen(false)}
+                    className="p-4 rounded-2xl bg-[#081221]/90 border border-[#D8B56A]/30 hover:border-[#D8B56A] flex items-center justify-between text-xs font-extrabold uppercase text-[#F4F1EA] hover:text-[#D8B56A] transition-all"
+                  >
+                    <span className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-[#D8B56A]" />
+                      <span>MY PROFILE</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-[#D8B56A]" />
+                  </Link>
 
                   {profile.is_admin && (
                     <Link
@@ -194,7 +200,7 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
                     >
                       <span className="flex items-center gap-2">
                         <Shield className="w-4 h-4" />
-                        <span>ADMIN CONTROL PANEL</span>
+                        <span>ADMIN PANEL</span>
                       </span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -204,19 +210,19 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
                 <form action={logoutUserAction}>
                   <button
                     type="submit"
-                    className="w-full p-4 rounded-2xl bg-red-950/40 border border-red-900/60 hover:border-red-600 flex items-center justify-center gap-2 text-xs font-extrabold text-red-400 uppercase tracking-widest cursor-pointer transition-all"
+                    className="w-full p-3.5 rounded-2xl bg-red-950/40 border border-red-900/60 hover:border-red-600 flex items-center justify-center gap-2 text-xs font-extrabold text-red-400 uppercase tracking-widest cursor-pointer transition-all"
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>LOGOUT OF ACCOUNT</span>
+                    <span>LOGOUT</span>
                   </button>
                 </form>
               </div>
             ) : (
-              <div className="pt-4 border-t border-[#D8B56A]/20 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="pt-4 border-t border-[#D8B56A]/20 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Link
                   href="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="p-4 rounded-2xl bg-[#081221] border border-[#D8B56A]/40 hover:border-[#D8B56A] flex items-center justify-center gap-2.5 text-xs font-extrabold text-[#D8B56A] uppercase tracking-widest hover:scale-105 transition-all"
+                  className="p-4 rounded-2xl bg-[#081221] border border-[#D8B56A]/40 hover:border-[#D8B56A] flex items-center justify-center gap-2.5 text-xs font-extrabold text-[#D8B56A] uppercase tracking-widest hover:scale-[1.02] transition-all"
                 >
                   <KeyRound className="w-4 h-4 text-[#D8B56A]" />
                   <span>LOGIN</span>
@@ -225,7 +231,7 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
                 <Link
                   href="/register"
                   onClick={() => setMenuOpen(false)}
-                  className="p-4 rounded-2xl gold-gradient-btn flex items-center justify-center gap-2.5 text-xs font-extrabold uppercase tracking-widest hover:scale-105 transition-all"
+                  className="p-4 rounded-2xl gold-gradient-btn flex items-center justify-center gap-2.5 text-xs font-extrabold uppercase tracking-widest hover:scale-[1.02] transition-all"
                 >
                   <UserPlus className="w-4 h-4" />
                   <span>SIGN UP / REGISTER</span>
@@ -234,7 +240,7 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
             )}
           </div>
 
-          {/* Footer Note Inside Overlay */}
+          {/* Footer Note */}
           <div className="max-w-7xl mx-auto w-full pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-slate-500 font-semibold uppercase tracking-widest">
             <span>UNOFFICIAL IICT FRESHER PARTY 2026</span>
             <span>© 2026 IICT Student Association</span>
@@ -244,5 +250,3 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
     </>
   );
 }
-
-

@@ -1,104 +1,72 @@
+import React from "react";
 import { requireApprovedUser } from "@/lib/auth/helpers";
-import { BookOpen, Building2, UserCheck, Users, Award, Sparkles, Lock, ArrowUpRight } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { HelpHubHero3D } from "@/app/components/3d/HelpHubHero3D";
+import { BookOpen, Building2, UserCheck, Users, Award, Sparkles, Lock, ArrowRight } from "lucide-react";
+import StudentDirectoryPortal from "./student-directory-portal";
 
 export const revalidate = 0;
 
 export const metadata = {
-  title: "Student Help Hub | IICT Bhadohi",
-  description: "Verified student resource portal, batch directory, faculty info, and campus guidelines.",
+  title: "Student Help Hub | UNOFFICIAL IICT",
+  description: "Verified student resource portal, dynamic batch directories, faculty information, and student positions.",
 };
 
 export default async function HelpHubPage() {
   await requireApprovedUser();
+  const supabase = await createClient();
 
-  const comingFeatures = [
-    {
-      title: "College Information",
-      description: "Official academic guidelines, campus resources, and important IICT operational updates.",
-      icon: Building2,
-      badge: "Coming Soon",
-    },
-    {
-      title: "Faculty Information",
-      description: "Comprehensive directory of IICT professors, department heads, and academic advisors.",
-      icon: UserCheck,
-      badge: "Coming Soon",
-    },
-    {
-      title: "All Batches Directory",
-      description: "Explore student profiles across all active batches (2023–2027, 2024–2028, 2025–2029, 2026–2030).",
-      icon: Users,
-      badge: "Coming Soon",
-    },
-    {
-      title: "Know Your Seniors",
-      description: "Visual senior directory to help new students connect with experienced IICT mentors.",
-      icon: Sparkles,
-      badge: "Coming Soon",
-    },
-    {
-      title: "Student Positions Directory",
-      description: "Official student council reps, General Secretary, TPRs, Sports and Cultural Secretaries.",
-      icon: Award,
-      badge: "Coming Soon",
-    },
+  // Fetch dynamic batches from database
+  const { data: batches } = await supabase
+    .from("batches")
+    .select("id, label, start_year, end_year")
+    .eq("active", true)
+    .order("start_year", { ascending: true });
+
+  const fallbackBatches = [
+    { id: "b1", label: "2023–2027", start_year: 2023, end_year: 2027 },
+    { id: "b2", label: "2024–2028", start_year: 2024, end_year: 2028 },
+    { id: "b3", label: "2025–2029", start_year: 2025, end_year: 2029 },
+    { id: "b4", label: "2026–2030", start_year: 2026, end_year: 2030 },
   ];
 
+  const activeBatches = batches && batches.length > 0 ? batches : fallbackBatches;
+
+  // Fetch approved safe public student profiles
+  const { data: studentProfiles } = await supabase
+    .from("public_student_profiles")
+    .select("*")
+    .order("created_at", { ascending: false });
+
   return (
-    <div className="min-h-screen py-16 px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
-      {/* Header Banner */}
-      <div className="space-y-4 border-b border-slate-800/80 pb-8 pt-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#081221] border border-[#D8B56A]/40 text-[#D8B56A] text-xs font-bold uppercase tracking-widest shadow-sm">
-          <BookOpen className="w-4 h-4 text-[#D8B56A]" />
-          <span>PROTECTED STUDENT RESOURCE</span>
+    <div className="relative min-h-screen selection:bg-[#D8B56A] selection:text-[#050914]">
+      {/* 3D Atmospheric Portal Scene */}
+      <HelpHubHero3D />
+
+      <div className="relative z-10 pt-28 pb-16 px-4 sm:px-8 max-w-7xl mx-auto space-y-16">
+        {/* Header Hero */}
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#081221]/90 border border-[#6C63A8]/60 text-[#D8B56A] text-[11px] font-bold uppercase tracking-[0.2em] shadow-lg">
+            <BookOpen className="w-3.5 h-3.5 text-[#D8B56A]" />
+            <span>PROTECTED STUDENT PORTAL</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl font-black text-[#F4F1EA] uppercase tracking-tight">
+            STUDENT <span className="text-[#6C63A8]">HELP HUB</span>
+          </h1>
+
+          <p className="text-xs sm:text-sm text-slate-300 tracking-[0.2em] uppercase font-bold">
+            Know Your College. Know Your People.
+          </p>
+
+          <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto leading-relaxed pt-1 font-medium">
+            Centralized resource environment for verified IICT students. Explore batch rosters, senior connection channels, faculty lists, and leadership representatives.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-[#F4F1EA] uppercase tracking-tight">
-          STUDENT <span className="gold-gradient-text">HELP HUB</span>
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-          Welcome to the centralized IICT Help Hub. Access verified student directories, academic resources, and campus leadership contacts.
-        </p>
-      </div>
 
-      {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {comingFeatures.map((feature, idx) => {
-          const Icon = feature.icon;
-          return (
-            <div
-              key={idx}
-              className="backdrop-blur-2xl bg-[#081221]/80 p-7 rounded-3xl border border-[#D8B56A]/25 hover:border-[#D8B56A]/60 flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-lg hover:-translate-y-1 transition-all"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-[#050914] border border-[#D8B56A]/30 flex items-center justify-center text-[#D8B56A]">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#050914] text-slate-400 border border-slate-800">
-                    <Lock className="w-3 h-3 text-[#D8B56A]" />
-                    {feature.badge}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5">
-                  <h3 className="font-extrabold text-base text-[#F4F1EA] group-hover:text-[#D8B56A] transition-colors uppercase tracking-wider">
-                    {feature.title}
-                  </h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 uppercase tracking-widest font-semibold">
-                <span>Verified Student Module</span>
-                <ArrowUpRight className="w-4 h-4 text-[#D8B56A]" />
-              </div>
-            </div>
-          );
-        })}
+        {/* Interactive Student Directory & Batch Selector */}
+        <StudentDirectoryPortal batches={activeBatches} students={studentProfiles || []} />
       </div>
     </div>
   );
 }
-

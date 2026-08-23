@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
 
-  const isStudentProtectedRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/help-hub");
+  const isStudentProtectedRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/profile") || pathname.startsWith("/help-hub");
   const isAdminRoute = pathname.startsWith("/admin");
   const isPendingRoute = pathname.startsWith("/pending-approval");
   const isAuthRoute = pathname === "/login" || pathname === "/register";
@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
 
   if (isAdminRoute) {
     if (!isAdmin) {
-      url.pathname = isApproved ? "/dashboard" : "/pending-approval";
+      url.pathname = isApproved ? "/profile" : "/pending-approval";
       return NextResponse.redirect(url);
     }
     return supabaseResponse;
@@ -79,7 +79,7 @@ export async function middleware(request: NextRequest) {
 
   if (isPendingRoute) {
     if (isApproved) {
-      url.pathname = "/dashboard";
+      url.pathname = "/profile";
       return NextResponse.redirect(url);
     }
     return supabaseResponse;
@@ -91,7 +91,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
     if (isApproved) {
-      url.pathname = "/dashboard";
+      url.pathname = "/profile";
       return NextResponse.redirect(url);
     }
     url.pathname = "/pending-approval";
