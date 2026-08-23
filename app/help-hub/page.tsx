@@ -3,6 +3,11 @@ import { BookOpen, Building2, UserCheck, Users, Award, Sparkles, Lock, ArrowUpRi
 
 export const revalidate = 0;
 
+export const metadata = {
+  title: "Student Help Hub | IICT Bhadohi",
+  description: "Verified student resource portal, batch directory, faculty info, and campus guidelines.",
+};
+
 export default async function HelpHubPage() {
   await requireApprovedUser();
 
@@ -40,18 +45,18 @@ export default async function HelpHubPage() {
   ];
 
   return (
-    <div className="space-y-8 py-4">
-      {/* Header */}
-      <div className="space-y-3 border-b border-navy-700/60 pb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card text-xs text-gold-300 border border-gold-500/30">
-          <BookOpen className="w-4 h-4 text-gold-400" />
-          <span>Protected Student Resource</span>
+    <div className="min-h-screen py-16 px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
+      {/* Header Banner */}
+      <div className="space-y-4 border-b border-slate-800/80 pb-8 pt-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#081221] border border-[#D8B56A]/40 text-[#D8B56A] text-xs font-bold uppercase tracking-widest shadow-sm">
+          <BookOpen className="w-4 h-4 text-[#D8B56A]" />
+          <span>PROTECTED STUDENT RESOURCE</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-          Student Help Hub
+        <h1 className="text-3xl sm:text-5xl font-black text-[#F4F1EA] uppercase tracking-tight">
+          STUDENT <span className="gold-gradient-text">HELP HUB</span>
         </h1>
         <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-          Welcome to the centralized IICT Help Hub. Phase 1 provides the secure verified student shell. Advanced directory and academic resources are currently being loaded.
+          Welcome to the centralized IICT Help Hub. Access verified student directories, academic resources, and campus leadership contacts.
         </p>
       </div>
 
@@ -62,22 +67,22 @@ export default async function HelpHubPage() {
           return (
             <div
               key={idx}
-              className="glass-card p-6 rounded-2xl border border-navy-700/60 flex flex-col justify-between space-y-4 relative overflow-hidden group"
+              className="backdrop-blur-2xl bg-[#081221]/80 p-7 rounded-3xl border border-[#D8B56A]/25 hover:border-[#D8B56A]/60 flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-lg hover:-translate-y-1 transition-all"
             >
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-11 h-11 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
-                    <Icon className="w-5.5 h-5.5" />
+                  <div className="w-12 h-12 rounded-2xl bg-[#050914] border border-[#D8B56A]/30 flex items-center justify-center text-[#D8B56A]">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-navy-950 text-slate-400 border border-navy-800">
-                    <Lock className="w-3 h-3 text-gold-400" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#050914] text-slate-400 border border-slate-800">
+                    <Lock className="w-3 h-3 text-[#D8B56A]" />
                     {feature.badge}
                   </span>
                 </div>
 
-                <div className="space-y-1">
-                  <h3 className="font-bold text-base text-slate-100 group-hover:text-gold-300 transition-colors flex items-center gap-1">
-                    <span>{feature.title}</span>
+                <div className="space-y-1.5">
+                  <h3 className="font-extrabold text-base text-[#F4F1EA] group-hover:text-[#D8B56A] transition-colors uppercase tracking-wider">
+                    {feature.title}
                   </h3>
                   <p className="text-xs text-slate-400 leading-relaxed">
                     {feature.description}
@@ -85,9 +90,9 @@ export default async function HelpHubPage() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-navy-800/80 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Phase 1 Protected Shell</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-slate-600" />
+              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 uppercase tracking-widest font-semibold">
+                <span>Verified Student Module</span>
+                <ArrowUpRight className="w-4 h-4 text-[#D8B56A]" />
               </div>
             </div>
           );
@@ -96,3 +101,4 @@ export default async function HelpHubPage() {
     </div>
   );
 }
+

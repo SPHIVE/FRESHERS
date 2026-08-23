@@ -1,37 +1,57 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ShieldCheck, Sparkles, Users, BookOpen } from "lucide-react";
 import { SceneCanvas } from "@/app/components/3d/SceneCanvas";
-import { QuickAccess3D } from "@/app/components/3d/QuickAccess3D";
-import { Financial3DSection } from "@/app/components/3d/Financial3DSection";
-import { ContributorsTeaser } from "@/app/components/3d/ContributorsTeaser";
-import { HelpHubPortal } from "@/app/components/3d/HelpHubPortal";
-import { EventTeaserScene } from "@/app/components/3d/EventTeaserScene";
 
 export default function LandingPage() {
   const handleExploreClick = () => {
-    const nextSection = document.getElementById("quick-access-section");
+    const nextSection = document.getElementById("explore-gateway-section");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const exploreGateways = [
+    {
+      title: "FRESHERS 2026",
+      subtitle: "Event Schedule, Highlights & Celebrations",
+      icon: Sparkles,
+      href: "/freshers",
+      action: "EXPLORE EVENT",
+    },
+    {
+      title: "CONTRIBUTORS",
+      subtitle: "Wall of Honor & Event Supporters",
+      icon: Users,
+      href: "/contributors",
+      action: "VIEW WALL",
+    },
+    {
+      title: "STUDENT HELP HUB",
+      subtitle: "Verified Student Directory & Campus Resources",
+      icon: BookOpen,
+      href: "/help-hub",
+      action: "ENTER PORTAL",
+    },
+  ];
+
   return (
-    <div className="relative text-[#F4F1EA] selection:bg-[#D8B56A] selection:text-[#050914] pb-16">
-      {/* 1. Full-Screen 100vw x 100dvh 3D Scene Background */}
+    <div className="relative text-[#F4F1EA] selection:bg-[#D8B56A] selection:text-[#050914]">
+      {/* 1. Full-Screen 100vw x 100dvh 3D Hero Background */}
       <SceneCanvas />
 
-      {/* 2. Hero Viewport Overlay (Matching input_file_0.png exactly) */}
+      {/* 2. Full-Screen Hero Viewport Overlay */}
       <div className="relative z-10 w-full h-[100dvh] flex flex-col justify-between pt-24 pb-8 px-4 sm:px-8 max-w-7xl mx-auto pointer-events-none">
-        {/* Top-Center IICT BHADOHI Label (Centered above 3D Title) */}
+        {/* Top-Center IICT BHADOHI Tagline */}
         <div className="text-center pt-2 pointer-events-auto">
           <p className="text-[11px] sm:text-xs font-bold tracking-[0.25em] text-[#D8B56A] uppercase drop-shadow-md">
             IICT BHADOHI
           </p>
         </div>
 
-        {/* Center Tagline & Gold Pill CTA Button (Positioned below the 3D text stage) */}
+        {/* Center Tagline & Gold Pill CTA Button */}
         <div className="text-center space-y-5 max-w-xl mx-auto mb-8 pointer-events-auto">
           <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#F4F1EA] uppercase drop-shadow-lg">
             A NEW BEGINNING. A LIFETIME OF MEMORIES.
@@ -50,9 +70,8 @@ export default function LandingPage() {
 
         {/* Bottom Bar: Social Links (Left), Scroll Indicator (Center), Transparency Badge (Right) */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto text-[10px] sm:text-[11px] text-slate-400 font-semibold tracking-widest uppercase">
-          {/* Social Media Links (Left Bottom) */}
+          {/* Social Media Links */}
           <div className="flex items-center gap-2.5">
-            {/* Instagram */}
             <a
               href="#"
               aria-label="Instagram"
@@ -62,7 +81,6 @@ export default function LandingPage() {
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
             </a>
-            {/* YouTube */}
             <a
               href="#"
               aria-label="YouTube"
@@ -72,7 +90,6 @@ export default function LandingPage() {
                 <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
               </svg>
             </a>
-            {/* Twitter */}
             <a
               href="#"
               aria-label="Twitter"
@@ -82,7 +99,6 @@ export default function LandingPage() {
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
-            {/* LinkedIn */}
             <a
               href="#"
               aria-label="LinkedIn"
@@ -94,7 +110,7 @@ export default function LandingPage() {
             </a>
           </div>
 
-          {/* Mouse Icon + Scroll to Explore (Center bottom) */}
+          {/* Mouse Icon + Scroll to Explore */}
           <div className="flex flex-col items-center gap-1 cursor-pointer group" onClick={handleExploreClick}>
             <div className="w-5 h-8 rounded-full border-2 border-slate-400/80 group-hover:border-[#D8B56A] transition-colors flex items-start justify-center p-1">
               <div className="w-1 h-2 rounded-full bg-[#D8B56A] animate-bounce" />
@@ -102,7 +118,7 @@ export default function LandingPage() {
             <span className="text-[9px] sm:text-[10px] text-slate-400 group-hover:text-slate-200 transition-colors">SCROLL TO EXPLORE</span>
           </div>
 
-          {/* Transparency Assurance Badge (Right bottom) */}
+          {/* Transparency Assurance Badge */}
           <div className="flex items-center gap-2 text-right">
             <div className="w-7 h-7 rounded-lg bg-[#081221]/90 border border-[#D8B56A]/30 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-4 h-4 text-[#D8B56A]" />
@@ -115,15 +131,55 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* 3. Lower Homepage Interactive 3D Journey Sections */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 space-y-16 pt-12">
-        <QuickAccess3D />
-        <Financial3DSection totalCollected={0} totalExpenses={0} />
-        <ContributorsTeaser contributors={[]} />
-        <HelpHubPortal />
-        <EventTeaserScene />
+      {/* 3. Minimal "EXPLORE IICT" Navigation Gateway (Matching user prompt specification) */}
+      <div id="explore-gateway-section" className="relative z-10 py-20 px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
+        <div className="text-center space-y-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#D8B56A]">
+            PORTALS & DIRECTORIES
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#F4F1EA] uppercase tracking-tight">
+            EXPLORE IICT
+          </h2>
+          <p className="text-xs text-slate-400 max-w-md mx-auto">
+            Navigate directly to dedicated event pages, financial transparency, and student portals.
+          </p>
+        </div>
+
+        {/* 3 Clean Gateway Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {exploreGateways.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={idx}
+                href={item.href}
+                className="backdrop-blur-2xl bg-[#081221]/80 p-8 rounded-3xl border border-[#D8B56A]/25 hover:border-[#D8B56A]/60 flex flex-col justify-between space-y-6 group transition-all hover:-translate-y-1 shadow-lg hover:shadow-[0_10px_30px_rgba(216,181,106,0.15)]"
+              >
+                <div className="space-y-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#050914] border border-[#D8B56A]/40 flex items-center justify-center text-[#D8B56A] group-hover:scale-110 transition-transform">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-black text-[#F4F1EA] group-hover:text-[#D8B56A] transition-colors uppercase tracking-wider">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {item.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs font-extrabold text-[#D8B56A] uppercase tracking-widest pt-4 border-t border-slate-800/80 group-hover:translate-x-1 transition-transform">
+                  <span>{item.action}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
+
 

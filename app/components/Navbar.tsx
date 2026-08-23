@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Sparkles, Shield, LogOut, Menu, X, User } from "lucide-react";
 import { logoutUserAction } from "@/app/actions/auth";
 
@@ -13,11 +14,27 @@ interface UserProfileProps {
 
 export function Navbar({ profile }: { profile: UserProfileProps | null }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  const navLinks = [
+    { name: "HOME", href: "/" },
+    { name: "FRESHERS 2026", href: "/freshers" },
+    { name: "CONTRIBUTORS", href: "/contributors" },
+    { name: "FINANCE", href: "/finance" },
+    { name: "STUDENT HELP HUB", href: "/help-hub" },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-auto bg-[#050914]/60 backdrop-blur-xl border-b border-[#D8B56A]/15">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 w-full pointer-events-auto transition-all duration-300 ${
+        isHomePage
+          ? "bg-[#050914]/60 backdrop-blur-xl border-b border-[#D8B56A]/15"
+          : "bg-[#050914]/90 backdrop-blur-2xl border-b border-[#D8B56A]/25 shadow-xl"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
-        {/* Left Logo & Branding (Crest + Text - matching input_file_0.png) */}
+        {/* Left Logo & Branding */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-[#081221] border border-[#D8B56A]/40 flex items-center justify-center shadow-[0_0_15px_rgba(216,181,106,0.15)] group-hover:scale-105 group-hover:border-[#D8B56A] transition-all">
             <Sparkles className="w-5 h-5 text-[#D8B56A]" />
@@ -32,36 +49,36 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
           </div>
         </Link>
 
-        {/* Center Navigation Links (Desktop - matching reference image) */}
-        <nav className="hidden md:flex items-center gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-300">
-          <Link href="/" className="text-[#D8B56A] hover:text-[#F1D28A] transition-colors relative after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2px] after:bg-[#D8B56A] after:rounded-full">
-            HOME
-          </Link>
-          <a href="#quick-access-section" className="hover:text-[#D8B56A] transition-colors">
-            ABOUT
-          </a>
-          <a href="#legendary-section" className="hover:text-[#D8B56A] transition-colors">
-            EVENT
-          </a>
-          <a href="#contributors-section" className="hover:text-[#D8B56A] transition-colors">
-            CONTRIBUTORS
-          </a>
-          <Link href="/help-hub" className="hover:text-[#D8B56A] transition-colors">
-            HELP HUB
-          </Link>
-          <a href="#financial-section" className="hover:text-[#D8B56A] transition-colors">
-            CONTACT
-          </a>
+        {/* Center Navigation Links (Desktop) */}
+        <nav className="hidden lg:flex items-center gap-7 text-[11px] font-bold uppercase tracking-widest text-slate-300">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`transition-colors relative py-1 ${
+                  isActive
+                    ? "text-[#D8B56A] after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2px] after:bg-[#D8B56A] after:rounded-full"
+                    : "hover:text-[#D8B56A]"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right Action Controls */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           {profile ? (
             <div className="flex items-center gap-3">
               {profile.approval_status === "approved" && (
                 <Link
                   href="/dashboard"
-                  className="text-xs font-bold uppercase text-slate-300 hover:text-[#D8B56A] transition-colors"
+                  className={`text-xs font-bold uppercase transition-colors ${
+                    pathname === "/dashboard" ? "text-[#D8B56A]" : "text-slate-300 hover:text-[#D8B56A]"
+                  }`}
                 >
                   Dashboard
                 </Link>
@@ -102,7 +119,7 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl text-slate-300 hover:text-[#D8B56A] bg-[#081221]/90 border border-[#D8B56A]/30 focus:outline-none"
+          className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-[#D8B56A] bg-[#081221]/90 border border-[#D8B56A]/30 focus:outline-none"
           aria-label="Toggle Navigation"
         >
           {mobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
@@ -111,50 +128,21 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden p-6 backdrop-blur-2xl bg-[#050914]/95 border-b border-[#D8B56A]/30 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200">
-          <nav className="flex flex-col space-y-3.5 text-xs font-bold uppercase tracking-widest text-slate-300">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[#D8B56A]"
-            >
-              HOME
-            </Link>
-            <a
-              href="#quick-access-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="hover:text-[#D8B56A]"
-            >
-              ABOUT
-            </a>
-            <a
-              href="#legendary-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="hover:text-[#D8B56A]"
-            >
-              EVENT
-            </a>
-            <a
-              href="#contributors-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="hover:text-[#D8B56A]"
-            >
-              CONTRIBUTORS
-            </a>
-            <Link
-              href="/help-hub"
-              onClick={() => setMobileMenuOpen(false)}
-              className="hover:text-[#D8B56A]"
-            >
-              HELP HUB
-            </Link>
-            <a
-              href="#financial-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="hover:text-[#D8B56A]"
-            >
-              CONTACT
-            </a>
+        <div className="lg:hidden p-6 backdrop-blur-2xl bg-[#050914]/95 border-b border-[#D8B56A]/30 space-y-5 shadow-2xl animate-in slide-in-from-top duration-200">
+          <nav className="flex flex-col space-y-4 text-xs font-bold uppercase tracking-widest text-slate-300">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={isActive ? "text-[#D8B56A] font-extrabold" : "hover:text-[#D8B56A]"}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="pt-4 border-t border-slate-800/80">
@@ -205,3 +193,4 @@ export function Navbar({ profile }: { profile: UserProfileProps | null }) {
     </header>
   );
 }
+

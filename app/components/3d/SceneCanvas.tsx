@@ -7,7 +7,6 @@ import { WebGLErrorBoundary } from "./WebGLErrorBoundary";
 import { LightingSystem } from "./LightingSystem";
 import { HeroEnvironment3D } from "./HeroEnvironment3D";
 import { FresherTypography3D } from "./FresherTypography3D";
-import { NavDestinations3D } from "./NavDestinations3D";
 import { CameraJourneyController } from "./CameraJourneyController";
 
 interface SceneCanvasProps {
@@ -63,13 +62,11 @@ export function SceneCanvas({ isAuthPage = false }: SceneCanvasProps) {
 
           {/* 3D Title is only shown on main Hero, not on Auth pages */}
           {!isAuthPage && <FresherTypography3D isMobile={isMobile} />}
-
-          {/* NavDestinations3D is only visible when scrolling down */}
-          {!isAuthPage && scrollProgress > 0.08 && <NavDestinations3D />}
         </Canvas>
       </div>
     </WebGLErrorBoundary>
   );
 }
+
 
 
