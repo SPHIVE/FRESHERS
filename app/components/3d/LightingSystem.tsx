@@ -1,0 +1,80 @@
+"use client";
+
+import React, { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+
+interface LightingProps {
+  scrollProgress?: number;
+}
+
+export function LightingSystem({ scrollProgress = 0 }: LightingProps) {
+  const spotLeftRef = useRef<THREE.SpotLight>(null);
+  const spotRightRef = useRef<THREE.SpotLight>(null);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+
+    if (spotLeftRef.current) {
+      spotLeftRef.current.position.x = Math.sin(t * 0.7) * 4 - 3;
+      spotLeftRef.current.position.z = Math.cos(t * 0.7) * 2 + 3 - scrollProgress * 15;
+    }
+
+    if (spotRightRef.current) {
+      spotRightRef.current.position.x = Math.cos(t * 0.7) * 4 + 3;
+      spotRightRef.current.position.z = Math.sin(t * 0.7) * 2 + 3 - scrollProgress * 15;
+    }
+  });
+
+  // Calculate environmental mood shift based on scroll progress:
+  // Mood 01: Midnight Navy + Champagne Gold
+  // Mood 02: Warmer Discovery Ambience
+  const keyLightIntensity = 1.8 + scrollProgress * 0.5;
+
+  return (
+    <>
+      {/* Dark Ambient Baseline */}
+      <ambientLight intensity={0.4} color="#081221" />
+
+      {/* Main Overhead Warm Champagne Key Light (#D8B56A) */}
+      <directionalLight
+        position={[0, 9, 6]}
+        intensity={keyLightIntensity}
+        color="#D8B56A"
+        castShadow
+      />
+
+      {/* Cool Navy / Deep Blue Rim Light (#244C7A) */}
+      <directionalLight
+        position={[-6, 4, -4]}
+        intensity={1.2}
+        color="#244C7A"
+      />
+
+      {/* Moving Concert Spotlight 1 (Champagne Gold Accent) */}
+      <spotLight
+        ref={spotLeftRef}
+        position={[-4, 7, 3]}
+        angle={0.45}
+        penumbra={0.8}
+        intensity={3.2}
+        color="#D8B56A"
+        distance={30}
+      />
+
+      {/* Moving Concert Spotlight 2 (Silver / Soft Ivory Accent) */}
+      <spotLight
+        ref={spotRightRef}
+        position={[4, 7, 3]}
+        angle={0.45}
+        penumbra={0.8}
+        intensity={2.6}
+        color="#F4F1EA"
+        distance={30}
+      />
+
+      {/* Bottom Stage Glow */}
+      <pointLight position={[0, -2.5, 2]} intensity={1.4} color="#D8B56A" distance={12} />
+    </>
+  );
+}
